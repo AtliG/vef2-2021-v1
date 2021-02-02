@@ -1,0 +1,30 @@
+<%- include('header') -%>
+
+<h1 class="title">Fræðslumyndbandasíðan</h1>
+<% data.categories.forEach(function(category) { %>
+  <div class="category">
+    <h2 class="category__title">
+      <%= category.title %>
+    </h2>
+    <div class="category__videos">
+      <% for(var i = 0; i < category.videos.length; i++) {%>
+	<% const video = data.videos[i]; %> 
+	<div class="video">
+	  <h4 class="video__title"><%= video.title %></h4>
+	  <div class="video__poster">
+	    <img src=<%= video.poster %> alt="Video thumbnail">
+	  </div>
+	  <div class="video__time">
+	    <p> 
+	      Fyrir 
+	      <%- app.locals.getTime(video.created) -%>
+	      síðan.
+	      </p> 
+	  </div>
+	</div>
+      <% } %>
+    </div>
+  </div>
+<% }); %>
+
+<%- include('footer') -%>

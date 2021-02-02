@@ -1,0 +1,5 @@
+{
+  "ignore": [".git", "node_modules"],
+  "watch": ["./", "./views", "./src", "./public/styles"],
+  "ext": "js, ejs "
+}
