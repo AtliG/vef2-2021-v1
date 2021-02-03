@@ -1,5 +1,5 @@
 import express from 'express';
-import { router } from './src/videos.js'; // eslint-disable-line
+import router from './src/videos.js'; // eslint-disable-line
 import { getTimePassed, getDuration } from './src/utils.js'; // eslint-disable-line
 
 const app = express();
@@ -14,7 +14,11 @@ app.set('view engine', 'ejs');
 
 app.use(express.static('public'));
 
-app.use((error, req, res) => res.render('error', { error }));
+/* eslint-disable */
+app.use((error, req, res) => {
+  return res.render('error', { error });
+});
+/* eslint-enable */
 
 app.use('/', router);
 

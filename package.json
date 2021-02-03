@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "vef2-2021-v1",
   "version": "1.0.0",
   "description": "[Kynning í fyrirlestri](https://youtu.be/pCEHnurbuCU).",
@@ -8,7 +9,8 @@
     "stylelint": "stylelint src/scss/**/*.scss --syntax scss",
     "dev": "nodemon app.js",
     "build-css": "node-sass --include-path scss src/scss/main.scss public/styles/main.css",
-    "test": "concurrently npm:eslint npm:stylelint"
+    "test": "concurrently npm:eslint npm:stylelint",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",

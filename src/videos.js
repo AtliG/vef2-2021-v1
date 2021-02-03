@@ -26,7 +26,7 @@ async function extractVideo(id) {
     data = JSON.parse(data);
     const { videos } = data;
 
-    const video = videos.find((el) => el.id === id);
+    const video = videos.find((el) => el.id == id); // eslint-disable-line
     const related = getRelatedVideos(videos, video.related);
 
     obj.video = video;
@@ -54,6 +54,6 @@ function catchErrors(fn) {
 
 router.get('/', catchErrors(allVideos));
 
-router.get('/:id?', videoById);
+router.get('/:id?', catchErrors(videoById));
 
 export default router;
