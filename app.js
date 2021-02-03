@@ -15,7 +15,7 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 /* eslint-disable */
-app.use((error, req, res) => {
+app.use((error, req, res, next) => {
   return res.render('error', { error });
 });
 /* eslint-enable */
