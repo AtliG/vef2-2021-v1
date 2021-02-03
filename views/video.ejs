@@ -15,18 +15,20 @@
   </p>
   <div class="video__related">
     <% related.forEach(function(relatedVideo) { %>
-      <div class="video">
-	<h4 class="video__title"><%= relatedVideo.title %></h4>
-	<div class="video__poster">
-	  <img src=<%= relatedVideo.poster %> alt="Video thumbnail">
-	</div>
-	<div class="video__time">
-	  <p> 
-	    Fyrir 
-	    <%- getTime(relatedVideo.created) -%>
-	    síðan.
-	    </p> 
-	</div>
+      <div class="item">
+	<a href='/<%=relatedVideo.id%>' class='item'>
+	  <div class="item__poster">
+	    <img src=<%= relatedVideo.poster %> alt="Video thumbnail" class="item__image">
+	  </div>
+	  <div class="item__text">
+	    <h4 class="item__title"><%= relatedVideo.title %></h4>
+	    <p class=item__created> 
+	      Fyrir 
+	      <%- getTime(relatedVideo.created) -%>
+	      síðan.
+	      </p> 
+	  </div>
+	</a>
       </div>
     <% }); %>
   </div>
