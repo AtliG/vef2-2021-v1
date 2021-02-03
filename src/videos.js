@@ -1,49 +1,51 @@
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
 import { readFile } from 'fs/promises';
-import util from 'util';
 import express from 'express';
+import { getRelatedVideos } from './utils.js'; // eslint-disable-line
 
-const path = dirname(fileURLToPath(import.meta.url));
-
-export const router = express.Router();
-
-
-function errorHandler(err, req, res, next) {
-
-}
+const router = express.Router();
 
 async function allVideos(req, res) {
-  const title = "Fræðslumyndbandaleigan";
-
-  console.log('here');
-
-  var data = '';
+  let data = '';
 
   try {
-    console.log('tryin');
-    data = await readFile('./videos.json', );
-    console.log('going well');
+    data = await readFile('./videos.json');
     data = JSON.parse(data);
   } catch (e) {
     console.error('error', e);
-    res.render('error', { error });
+    res.render('error', { error: e });
   }
 
-  console.log('lit');
-    
   res.render('index', { data });
-
-  console.log('lit');
 }
 
 async function extractVideo(id) {
-  
+  const obj = { video: '', related: '' };
+
+  try {
+    let data = await readFile('./videos.json');
+    data = JSON.parse(data);
+    const { videos } = data;
+
+    const video = videos.find((el) => el.id === id);
+    const related = getRelatedVideos(videos, video.related);
+
+    obj.video = video;
+    obj.related = related;
+  } catch (e) {
+    console.error('error', e);
+  }
+
+  return obj;
 }
 
-
-async function videoById(req, res, id) {
-  
+async function videoById(req, res) {
+  try {
+    const data = await extractVideo(req.params.id);
+    res.render('video', { video: data.video, related: data.related });
+  } catch (e) {
+    console.error('error', e);
+    res.render('error', { error: e });
+  }
 }
 
 function catchErrors(fn) {
@@ -54,4 +56,4 @@ router.get('/', catchErrors(allVideos));
 
 router.get('/:id?', videoById);
 
-router.use(errorHandler);
+export default router;

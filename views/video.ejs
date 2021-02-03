@@ -1,0 +1,37 @@
+<%- include('header') -%>
+
+<h1 class="title">
+<%- video.title -%>
+</h1>
+
+<div class="video__container">
+  <div class="video__player">
+    <video controls>
+      <source src=<%= video.video %>>
+    </video>
+  </div>
+  <p>
+    <%=video.description%>
+  </p>
+  <div class="video__related">
+    <% related.forEach(function(relatedVideo) { %>
+      <div class="video">
+	<h4 class="video__title"><%= relatedVideo.title %></h4>
+	<div class="video__poster">
+	  <img src=<%= relatedVideo.poster %> alt="Video thumbnail">
+	</div>
+	<div class="video__time">
+	  <p> 
+	    Fyrir 
+	    <%- getTime(relatedVideo.created) -%>
+	    síðan.
+	    </p> 
+	</div>
+      </div>
+    <% }); %>
+  </div>
+</div>
+<hr></hr>
+<a href='/'>Til baka</a>
+
+<%- include('footer') -%>
